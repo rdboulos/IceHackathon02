@@ -1,0 +1,5 @@
+pandasai==0.8.4
+streamlit
+matplotlib==3.7.1
+pandas==1.5.3
+bs4
