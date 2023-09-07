@@ -8,13 +8,33 @@ import matplotlib.pyplot as plt
 # pip install streamlit-chat  
 from streamlit_chat import message
 
-openai.api_key = "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"
+
+API_KEY='````sk-KUXXmJ4kF````Eblnb1JXwSg````T3BlbkFJw````E8Qbz411kQ2Q````pWww90w````'
+openai.api_key = API_KEY.replace('````', '')
+
+#openai.api_key = "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"
 
 # Creating a function which will generate the calls from the API
 
 # Load CSV 
-df = pd.read_csv("C:/Users/SurajKannan/OneDrive - Decision Inc/Desktop/Innovation Project/OpenAI/garminfile/GOTOES_FIT.csv")
-st.session_state.df = df
+if "openai_key" not in st.session_state:
+    with st.form("API key"):
+        key = st.text_input("OpenAI Key", value="", type="password")
+        if st.form_submit_button("Submit"):
+            st.session_state.openai_key = key
+            st.session_state.prompt_history = []
+            st.session_state.df = None
+
+if "openai_key" in st.session_state:
+    if st.session_state.df is None:
+        uploaded_file = st.file_uploader(
+            "Choose a CSV file. This should be in long format (one datapoint per row).",
+            type="csv",
+        )
+        if uploaded_file is not None:
+            df = pd.read_csv(uploaded_file)
+            st.session_state.df = df
+		
 # Define the LLM
 def generate_response(user_input):
     llm = OpenAI(api_token=openai.api_key)
