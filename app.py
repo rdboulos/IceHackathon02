@@ -45,7 +45,7 @@ def generate_response(user_input):
     # fig, ax = plt.subplots()
     if fig.get_axes():
         st.pyplot(fig)
-    st.write(x)
+    #st.write(x)
     return x
 
 
